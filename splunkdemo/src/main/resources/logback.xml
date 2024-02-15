@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property resource="application.properties"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                ${console.logging.pattern}
+            </Pattern>
+        </layout>
+    </appender>
+
+   <appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+       <url>${splunk.url}</url>
+       <token>${splunk.hec.token}</token>
+       <index>${splunk.index}</index>
+       <source>${splunk.service.name}</source>
+       <sourcetype>${spring.profile.active}</sourcetype>
+       <disableCertificateValidation>true</disableCertificateValidation>
+       <batch_size_count>2</batch_size_count>
+       <layout class="ch.qos.logback.classic.PatternLayout">
+           <Pattern>${splunk.logging.pattern}</Pattern>
+       </layout>
+   </appender>
+
+    <root level="INFO">
+        <appender-ref ref="SPLUNK"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
