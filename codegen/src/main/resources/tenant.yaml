@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Tenant API
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: Tenant Controller
+    description: list of all the tenant related endpoints.
+paths:
+  /api/v1/tenants:
+    get:
+      tags:
+        - Tenant Controller
+      summary: Fetches Tenant.
+      description: Fetches single tenant based on the id provided in parameter.
+      operationId: getTenant
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TenantResource'
+    post:
+      tags:
+        - Tenant Controller
+      summary: Creates Tenant.
+      description: Creates a single tenant in the database. (id is UUID generated)
+      operationId: createTenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantResource'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TenantResource'
+  /api/v1/organizations:
+    get:
+      tags:
+        - Tenant Controller
+      summary: Fetches Organization.
+      description: Fetches single organization based on the id provided in parameter.
+      operationId: getOrganization
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrganizationResource'
+    post:
+      tags:
+        - Tenant Controller
+      summary: Creates Organization.
+      description: Creates a single organization in the database. (id is UUID generated)
+      operationId: createOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationResource'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrganizationResource'
+  /api/v1/tenants/all:
+    get:
+      tags:
+        - Tenant Controller
+      operationId: getTenants
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTenant'
+components:
+  schemas:
+    TenantResource:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        registrationDate:
+          type: integer
+          format: int64
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    PageTenant:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tenant'
+        number:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortObject'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        direction:
+          type: string
+        nullHandling:
+          type: string
+        ascending:
+          type: boolean
+        property:
+          type: string
+        ignoreCase:
+          type: boolean
+    Tenant:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        registrationDate:
+          type: integer
+          format: int64
