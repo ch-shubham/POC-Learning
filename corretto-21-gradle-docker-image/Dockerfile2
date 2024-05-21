@@ -1,0 +1,26 @@
+FROM alpine as builder
+
+
+echo "Hello World" >> file1.txt # 1GB
+
+echo file1.txt >> file2.txt #800MB
+
+echo "hi" + file2.txt >> file3.txt #900MB
+
+echo "abc" + file3.txt >> build.sh #500MB
+
+build.sh.  # installs java at location /opt/java/java.exe # 100MB
+
+
+
+
+from apline
+
+COPY --from: builder /opt/java/java.exe /opt/java
+
+CMD ["echo", "hello"]
+
+
+--> 100MB
+
+image-> 
