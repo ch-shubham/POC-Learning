@@ -1,0 +1,6 @@
+spring:
+  sleuth:
+    enabled: true
+    tracer:
+      bridge:
+        enabled: true

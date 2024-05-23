@@ -27,4 +27,10 @@ public class Service2Controller {
         LOGGER.info("LOG -- 4 :::: ");
         return false;
     }
+
+    @GetMapping(path = "/api/3")
+    public Boolean endpoint3(){
+        LOGGER.info("LOG -- 5 :: FROM CAMEL :: ");
+        return false;
+    }
 }
