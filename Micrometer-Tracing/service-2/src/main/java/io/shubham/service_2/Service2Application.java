@@ -16,7 +16,7 @@ public class Service2Application {
 
 
 	@Bean
-	RestTemplate restTemplate(RestTemplateBuilder builder) {
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 }
