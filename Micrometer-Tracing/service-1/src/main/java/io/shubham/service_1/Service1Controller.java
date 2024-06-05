@@ -3,6 +3,7 @@ package io.shubham.service_1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +15,9 @@ public class Service1Controller {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    Service1Service service1Services;
 
     @GetMapping(path = "/api/1")
     public Boolean endpoint1(){
@@ -40,4 +44,14 @@ public class Service1Controller {
         LOGGER.info("Hello");
         return false;
     }
+
+    @GetMapping(path = "/async/test")
+    public Boolean endpointAsync()
+    {
+        LOGGER.info("TRACE-1");
+        service1Services.checkTrace();
+        return false;
+    }
+
+
 }
