@@ -12,3 +12,10 @@ services:
       - MINIO_ROOT_USER=ROOTNAME
       - MINIO_ROOT_PASSWORD=CHANGEME123
     command: server /data --console-address ":9001"
+
+  minio-java:
+    build: ./minio
+    ports:
+      - 8080:8080
+    depends_on:
+      - minio
