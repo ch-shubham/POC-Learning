@@ -3,6 +3,7 @@ package io.poc.minio.resouces;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
+import io.poc.minio.domain.MinioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ import java.util.List;
 public class MinIOController {
 
     @Autowired
-    MinioClient minioClient;
+    MinioService minioService;
 
     @GetMapping("/health")
     public ResponseEntity<String> getHealth(){
@@ -28,16 +29,10 @@ public class MinIOController {
 
     @GetMapping("/getBucketList")
     public ResponseEntity<Integer> getBucketList() {
-        try{
-            List<Bucket> bucketList = minioClient.listBuckets();
-            return ResponseEntity.ok(bucketList.size());
-
-        }
-        catch (Exception err){
-            System.out.println("------------------------");
-            System.out.println(err);
-            System.out.println("------------------------");
-            return ResponseEntity.internalServerError().body(-1);
-        }
+        Integer buckList = minioService.getBucketList();
+        return buckList == -1
+                ? ResponseEntity.internalServerError().body(buckList)
+                : ResponseEntity.ok(buckList);
     }
+
 }
