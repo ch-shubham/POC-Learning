@@ -4,21 +4,21 @@ import { decrement, increment, reset } from '../redux/features/counter/counterSl
 
 function App() {
   const count = useSelector(state => state.counter.value)
-  const disptach = useDispatch();
+  const dispatch = useDispatch(); // fixed typo
 
   const handleIncrement = () => {
     console.log("handleIncrement clicked")
-    disptach(increment())
+    dispatch(increment()) // fixed typo
   }
 
   const handleDecrement = () => {
     console.log("handleDecrement clicked")
-    disptach(decrement())
+    dispatch(decrement()) // fixed typo
   }
 
   const resetHandler = () => {
     console.log("resetHandler clicked")
-    disptach(reset())
+    dispatch(reset()) // fixed typo
   }
   return (
     <>
@@ -35,3 +35,5 @@ function App() {
 }
 
 export default App
+
+
