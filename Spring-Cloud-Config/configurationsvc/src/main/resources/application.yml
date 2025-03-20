@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: configurationsvc
+  profiles:
+    active: dev

@@ -1,0 +1,31 @@
+server:
+  port: 8888
+
+spring:
+    cloud:
+      config:
+        server:
+          git:
+            uri: https://github.com/ch-shubham/POC-Learning.git
+            default-label: master
+            clone-on-start: true
+            username: ch-shubham
+            password: ENC(Um3esRhoy18Sxerl5cDWUP/cT8dv4K2Ba7iG0z0owOSpMVqojq6TMv5+hoQnzFRyBkDGAkTsQD4=)
+            search-paths:
+              - Spring-Cloud-Config/config-store/dev
+              - Spring-Cloud-Config/config-store/uat
+              - Spring-Cloud-Config/config-store/prod
+      compatibility-verifier:
+        enabled: false
+
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+    password: ${SECRET_KEY} # keeping it in env var or vault is preferred
+
+# Command to encrypt and decrupt (confirm the version):
+    #$ cd ~/.m2/repository/org/jasypt/jasypt/1.9.3
+    #$ java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="mysecretpassword" password="config_poc" algorithm=PBEWithMD5AndDES
+    #$ java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringDecryptionCLI input="HrUXYwbD5YknGH6thQ7OesVb63lCfhib6T2kGjhhP1o=" password="config_poc" algorithm=PBEWithMD5AndDES
